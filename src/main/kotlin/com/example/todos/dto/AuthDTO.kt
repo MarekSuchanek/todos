@@ -1,3 +1,6 @@
 package com.example.todos.dto
 
-class AuthDTO(val email: String, val password: String)
+data class AuthDTO(
+        val email: String,
+        val password: String
+)

@@ -12,8 +12,5 @@ import javax.validation.Valid
 class AuthController(val userService: UserService, val passwordEncoder: PasswordEncoder) {
 
     @PostMapping("/auth")
-    fun auth(@Valid @RequestBody authDTO: AuthDTO): Boolean {
-        val user = userService.findUserByEmail(authDTO.email)
-        return if (user != null)  passwordEncoder.matches(authDTO.password, user.password) else false
-    }
+    fun auth(@Valid @RequestBody authDTO: AuthDTO): Boolean = userService.authenticateUser(authDTO.email, authDTO.password)
 }
