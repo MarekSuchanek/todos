@@ -9,7 +9,7 @@ plugins {
 
 group = "com.example"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_1_8
+java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
 	mavenCentral()
@@ -22,7 +22,8 @@ dependencies {
 	implementation("org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.2.0.RELEASE")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	implementation("org.springdoc:springdoc-openapi-ui:1.2.21")
+	implementation("org.springdoc:springdoc-openapi-security:1.2.21")
 	runtime("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")

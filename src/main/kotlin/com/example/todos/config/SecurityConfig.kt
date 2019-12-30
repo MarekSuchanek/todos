@@ -40,7 +40,7 @@ class SecurityConfig(
                 .and()
                 .authorizeRequests()
                 .antMatchers("/oauth/token").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
     }
 
     override fun configure(auth: AuthenticationManagerBuilder?) {
