@@ -1,6 +1,6 @@
 package com.example.todos.config
 
-import com.example.todos.service.UserService
+import com.example.todos.service.user.UserService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager

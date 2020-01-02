@@ -11,11 +11,18 @@ import javax.validation.constraints.Size
 data class User(
         @field: Id
         @field: GeneratedValue(strategy = GenerationType.AUTO)
-        val uuid: UUID = UUID.randomUUID(),
+        val id: UUID = UUID.randomUUID(),
+
+        val firstname: String = "",
+        val lastname: String = "",
+
 
         @field: Column(unique = true)
         @get: NotBlank
         val email: String = "",
 
-        val password: String = ""
+        val password: String = "",
+
+        @OneToMany(mappedBy = "user")
+        val todos: List<Todo>? = null
 ) : Serializable

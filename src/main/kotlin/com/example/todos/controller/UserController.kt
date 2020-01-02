@@ -1,27 +1,23 @@
 package com.example.todos.controller
 
-import com.example.todos.dto.UserDTO
-import com.example.todos.dto.UserDetailsDTO
+import com.example.todos.dto.user.UserRegistrationDTO
+import com.example.todos.dto.user.UserDetailsDTO
 import com.example.todos.model.User
-import com.example.todos.service.UserService
+import com.example.todos.service.user.UserService
 import org.springframework.security.core.Authentication
-import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
 @RestController
+@RequestMapping("/users")
 class UserController(val userService: UserService) {
 
-    @GetMapping("/users")
+    @GetMapping
     fun getAllUsers(): List<UserDetailsDTO> = userService.getAllUsers()
 
-    @GetMapping("/users/current")
-    fun getCurrentUser(auth: Authentication): User? = userService.findUserByEmail(auth.name)
-    // TODO: Return some DTO
+    @GetMapping("/current")
+    fun getCurrentUser(auth: Authentication): UserDetailsDTO? = userService.findUserByEmail(auth.name)
 
-    @PostMapping("/users")
-    fun createNewUser(@Valid @RequestBody user: UserDTO): UserDetailsDTO = userService.createNewUser(user)
+    @PostMapping("/register")
+    fun createNewUser(@Valid @RequestBody user: UserRegistrationDTO): UserDetailsDTO = userService.createNewUser(user)
 }

@@ -19,7 +19,7 @@ class ResourceServerConfig : ResourceServerConfigurerAdapter() {
         if (http == null) return
         http
                 .authorizeRequests()
-                .antMatchers("/users").permitAll()
+                .antMatchers("/users/register").permitAll()
                 .antMatchers("/swagger-ui.html", "/swagger-ui/**", "/api-docs/**").permitAll()
                 .anyRequest().authenticated()
     }
