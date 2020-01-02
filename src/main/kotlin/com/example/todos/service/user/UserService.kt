@@ -34,11 +34,12 @@ class UserService(
     fun findUserByEmail(email: String): UserDetailsDTO? = userRepository.findByEmail(email)?.let { userMapper.toUserDetailsDTO(it) }
 
     fun getCurrentUser(): User? {
-        val obj = SecurityContextHolder.getContext().authentication.principal
-
-        return if (obj is UserDetails) {
-            userRepository.findByEmail(obj.username)
+        val username = SecurityContextHolder.getContext().authentication.principal
+        return if (username is String) {
+            println("obj.username = $username")
+            userRepository.findByEmail(username)
         } else {
+            println("weird... ${username.javaClass}")
             null
         }
     }

@@ -3,11 +3,12 @@ package com.example.todos.service.todo
 import com.example.todos.dto.todo.TodoDTO
 import com.example.todos.model.Todo
 import com.example.todos.model.User
+import com.example.todos.service.user.UserMapper
 import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class TodoMapper {
+class TodoMapper(val userMapper: UserMapper) {
 
     fun toDTO(todo: Todo) : TodoDTO = TodoDTO(
             todo.id,
@@ -15,10 +16,10 @@ class TodoMapper {
             todo.note,
             todo.priority,
             todo.deadline,
-            todo.user
+            todo.user?.let { userMapper.toUserDetailsDTO(it) }
     )
 
-    fun fromCreateDTO(todoDTO: TodoDTO, user: User? = null) : Todo = Todo(
+    fun fromCreateDTO(todoDTO: TodoDTO, user: User?) : Todo = Todo(
             name = todoDTO.name,
             note = todoDTO.note,
             priority = todoDTO.priority,
@@ -32,6 +33,6 @@ class TodoMapper {
             note = todoDTO.note,
             priority = todoDTO.priority,
             deadline = todoDTO.deadline,
-            user = todoDTO.user
+            user = todoDTO.user?.let { userMapper.fromUserDetailsDTO(it) }
     )
 }

@@ -1,5 +1,6 @@
 package com.example.todos.model
 
+import org.codehaus.jackson.annotate.JsonIgnore
 import java.io.Serializable
 import java.util.*
 import javax.persistence.*

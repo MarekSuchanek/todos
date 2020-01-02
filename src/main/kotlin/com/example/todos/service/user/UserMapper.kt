@@ -24,4 +24,11 @@ class UserMapper(
             email = userRegistrationDTO.email,
             password = passwordEncoder.encode(userRegistrationDTO.password)
     )
+
+    fun fromUserDetailsDTO(userDetailsDTO: UserDetailsDTO): User = User(
+            id = userDetailsDTO.id,
+            firstname = userDetailsDTO.firstname,
+            lastname = userDetailsDTO.lastname,
+            email = userDetailsDTO.email
+    )
 }
