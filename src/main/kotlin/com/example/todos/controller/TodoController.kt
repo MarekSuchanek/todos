@@ -2,6 +2,7 @@ package com.example.todos.controller
 
 import com.example.todos.controller.exceptions.ResourceNotFoundException
 import com.example.todos.dto.todo.TodoDTO
+import com.example.todos.dto.todo.TodoPartialDTO
 import com.example.todos.service.todo.TodoService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -27,4 +28,7 @@ class TodoController(val todoService: TodoService) {
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     fun deleteTodo(@PathVariable("id") id: UUID) = if (todoService.delete(id)) null else throw ResourceNotFoundException()
+
+    @PatchMapping("/{id}")
+    fun patchTodo(@PathVariable("id") id: UUID, @Valid @RequestBody todoPartialDTO: TodoPartialDTO): TodoDTO = todoService.patch(todoPartialDTO, id) ?: throw ResourceNotFoundException()
 }

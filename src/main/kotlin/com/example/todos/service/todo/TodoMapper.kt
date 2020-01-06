@@ -1,6 +1,7 @@
 package com.example.todos.service.todo
 
 import com.example.todos.dto.todo.TodoDTO
+import com.example.todos.dto.todo.TodoPartialDTO
 import com.example.todos.model.Todo
 import com.example.todos.model.User
 import com.example.todos.service.user.UserMapper
@@ -34,5 +35,14 @@ class TodoMapper(val userMapper: UserMapper) {
             priority = todoDTO.priority,
             deadline = todoDTO.deadline,
             user = todoDTO.user?.let { userMapper.fromUserDetailsDTO(it) }
+    )
+
+    fun applyPatches(current: Todo, todoPartialDTO: TodoPartialDTO): Todo = Todo(
+            id = current.id,
+            name = todoPartialDTO.name.orElse(current.name),
+            note = todoPartialDTO.note.orElse(current.note),
+            priority = todoPartialDTO.priority.orElse(current.priority),
+            deadline = todoPartialDTO.deadline.orElse(current.deadline),
+            user = current.user
     )
 }

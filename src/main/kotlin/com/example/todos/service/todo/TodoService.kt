@@ -1,6 +1,7 @@
 package com.example.todos.service.todo
 
 import com.example.todos.dto.todo.TodoDTO
+import com.example.todos.dto.todo.TodoPartialDTO
 import com.example.todos.repository.TodoRepository
 import com.example.todos.service.user.UserService
 import org.springframework.data.repository.findByIdOrNull
@@ -26,5 +27,11 @@ class TodoService(
     }
 
     fun update(todoDTO: TodoDTO, id: UUID): TodoDTO? = todoMapper.toDTO(todoRepository.save(todoMapper.fromUpdateDTO(todoDTO, id)))
+
+    fun patch(todoPartialDTO: TodoPartialDTO, id: UUID): TodoDTO? {
+        println(todoPartialDTO)
+        val current = todoRepository.findById(id)
+        return if (current.isEmpty) null else todoMapper.toDTO(todoRepository.save(todoMapper.applyPatches(current.get(), todoPartialDTO)))
+    }
 
 }
